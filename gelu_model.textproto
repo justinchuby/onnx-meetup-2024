@@ -1,0 +1,227 @@
+ir_version: 9
+producer_name: "torch"
+producer_version: "2.3.1"
+graph {
+  node {
+    output: "const__1"
+    name: "n0__1"
+    op_type: "Constant"
+    attribute {
+      name: "value"
+      t {
+        data_type: 1
+        float_data: 1.4142135
+        name: "const"
+      }
+      type: TENSOR
+    }
+  }
+  node {
+    input: "arg0_1"
+    input: "const__1"
+    output: "inner__1"
+    name: "n2__1"
+    op_type: "Div"
+  }
+  node {
+    input: "inner__1"
+    output: "erf__1"
+    name: "n3__1"
+    op_type: "Erf"
+  }
+  node {
+    output: "int64_1_cast__1"
+    op_type: "Constant"
+    attribute {
+      name: "value"
+      t {
+        data_type: 1
+        name: "int64_1_cast__1"
+        raw_data: "\000\000\200?"
+      }
+      type: TENSOR
+    }
+  }
+  node {
+    input: "erf__1"
+    input: "int64_1_cast__1"
+    output: "inner_0__1"
+    name: "n6__1"
+    op_type: "Add"
+  }
+  node {
+    input: "arg0_1"
+    input: "inner_0__1"
+    output: "inner_1__1"
+    name: "n7__1"
+    op_type: "Mul"
+  }
+  node {
+    output: "const_2__1"
+    name: "n8__1"
+    op_type: "Constant"
+    attribute {
+      name: "value"
+      t {
+        data_type: 1
+        float_data: 0.5
+        name: "const_2"
+      }
+      type: TENSOR
+    }
+  }
+  node {
+    input: "const_2__1"
+    input: "inner_1__1"
+    output: "val_gelu"
+    name: "n10__1"
+    op_type: "Mul"
+  }
+  name: "main_graph"
+  input {
+    name: "arg0_1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+    metadata_props {
+      key: "pkg.torch.export.graph_signature.InputSpec.kind"
+      value: "USER_INPUT"
+    }
+    metadata_props {
+      key: "pkg.torch.export.graph_signature.InputSpec.persistent"
+      value: "None"
+    }
+  }
+  output {
+    name: "val_gelu"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+    metadata_props {
+      key: "pkg.torch.export.graph_signature.OutputSpec.kind"
+      value: "USER_OUTPUT"
+    }
+  }
+  value_info {
+    name: "const__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+        }
+      }
+    }
+  }
+  value_info {
+    name: "inner__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+  value_info {
+    name: "erf__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+  value_info {
+    name: "int64_1_cast__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+        }
+      }
+    }
+  }
+  value_info {
+    name: "inner_0__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+  value_info {
+    name: "inner_1__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+          dim {
+            dim_value: 1
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+  value_info {
+    name: "const_2__1"
+    type {
+      tensor_type {
+        elem_type: 1
+        shape {
+        }
+      }
+    }
+  }
+}
+opset_import {
+  domain: ""
+  version: 18
+}
+opset_import {
+  domain: "pkg.onnxscript.torch_lib"
+  version: 1
+}
