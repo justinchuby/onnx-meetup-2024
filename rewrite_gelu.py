@@ -16,26 +16,19 @@ def gelu(op, x: ir.Value):
     return op.Gelu(x, domain="com.microsoft")
 
 
-def apply_rewrite_with_commute(model: ir.Model) -> ir.Model:
-    rule = pattern.RewriteRule(
-        erf_gelu_pattern,  # Target Pattern
-        gelu,  # Replacement
-    )
-    # Create a Rewrite Rule Set with commute=True
-    rewrite_rule_set = pattern.RewriteRuleSet([rule], commute=True)
-    # Apply rewrites
-    model_with_rewrite_applied = onnxscript.rewriter.rewrite(
-        model,
-        pattern_rewrite_rules=rewrite_rule_set,
-    )
-    return model_with_rewrite_applied
-
+rule = pattern.RewriteRule(
+    erf_gelu_pattern,  # Target Pattern
+    gelu,  # Replacement
+)
+# Create a Rewrite Rule Set with commute=True
+rewrite_rule_set = pattern.RewriteRuleSet([rule], commute=True)
 
 # Apply rewrite
-# Apply rewrite
-fused_relu_model = apply_rewrite_with_commute(gelu_model)
+fused_relu_model = onnxscript.rewriter.rewrite(
+    gelu_model,
+    pattern_rewrite_rules=rewrite_rule_set,
+)
 onnx.save(fused_relu_model, "fused_relu_model.onnx")
-print(fused_relu_model)
 
 # Applied 1 of general pattern rewrite rules.
 # <
